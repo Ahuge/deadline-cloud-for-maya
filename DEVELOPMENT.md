@@ -239,6 +239,8 @@ You'll need to perform the following steps to substitute your build of the adapt
 
 3. Open the Maya integrated submitter, and in the Job-Specific Settings tab, enable the option 'Include Adaptor Wheels'. This option is only visible when the environment variable `DEADLINE_ENABLE_DEVELOPER_OPTIONS` is set to `true`. Then submit your test job.
 
+NOTE: The MayaAdaptor expects that the MayaPY executable is named `mayapy` and is set on the PATH. If this is not the case, you can set the `MAYA_ADAPTOR_MAYAPY_EXECUTABLE` environment variable to the path to the MayaPy executable.
+
 #### Testing the Adaptor
 
 Unit tests are all located under the `test/deadline_submitter_for_maya/unit` directory of this repository. If you are adding
