@@ -13,6 +13,7 @@ import maya.cmds  # pylint: disable=import-error
 
 from deadline.client.api import get_deadline_cloud_library_telemetry_client
 from deadline.client.job_bundle._yaml import deadline_yaml_dump
+from deadline.client.util.environment_loader import load_dcc_environment_callbacks
 from deadline.client.ui.dialogs.submit_job_to_deadline_dialog import (  # pylint: disable=import-error
     SubmitJobToDeadlineDialog,
     JobBundlePurpose,
@@ -660,6 +661,13 @@ def show_maya_render_submitter(parent, f=Qt.WindowFlags()) -> "Optional[SubmitJo
         rez_packages += " mtoa"
         conda_packages += " maya-mtoa"
 
+    _on_ui_callback, _on_create_job_bundle_callback, _on_post_submit_callback = load_dcc_environment_callbacks(dcc_name="maya")
+    callback_kwargs = {
+        "on_create_job_bundle_callback": _on_create_job_bundle_callback or on_create_job_bundle_callback,
+        "on_ui_callback": _on_ui_callback,
+        "on_post_submit_callback": _on_post_submit_callback
+    }
+
     submitter_dialog = SubmitJobToDeadlineDialog(
         job_setup_widget_type=SceneSettingsWidget,
         initial_job_settings=render_settings,
@@ -669,10 +677,11 @@ def show_maya_render_submitter(parent, f=Qt.WindowFlags()) -> "Optional[SubmitJo
         },
         auto_detected_attachments=auto_detected_attachments,
         attachments=attachments,
-        on_create_job_bundle_callback=on_create_job_bundle_callback,
         parent=parent,
         f=f,
         show_host_requirements_tab=True,
+        plugins_dir=os.path.join(os.path.dirname(__file__), "plugins"),
+        **callback_kwargs
     )
 
     submitter_dialog.show()
