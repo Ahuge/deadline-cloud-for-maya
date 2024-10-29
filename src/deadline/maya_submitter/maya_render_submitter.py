@@ -13,11 +13,11 @@ import maya.cmds  # pylint: disable=import-error
 
 from deadline.client.api import get_deadline_cloud_library_telemetry_client
 from deadline.client.job_bundle._yaml import deadline_yaml_dump
-from deadline.client.util.environment_loader import load_dcc_environment_callbacks
 from deadline.client.ui.dialogs.submit_job_to_deadline_dialog import (  # pylint: disable=import-error
     SubmitJobToDeadlineDialog,
     JobBundlePurpose,
 )
+from deadline.client.util.environment_loader import load_dcc_environment_callbacks
 from deadline.client.exceptions import DeadlineOperationError
 from PySide2.QtCore import Qt  # pylint: disable=import-error
 
