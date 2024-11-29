@@ -18,7 +18,7 @@ from deadline.client.ui.dialogs.submit_job_to_deadline_dialog import (  # pylint
     JobBundlePurpose,
 )
 from deadline.client.exceptions import DeadlineOperationError
-from PySide2.QtCore import Qt  # pylint: disable=import-error
+from qtpy.QtCore import Qt  # type: ignore
 
 from . import Animation, Scene  # type: ignore
 from .assets import AssetIntrospector
@@ -70,8 +70,10 @@ def _get_job_template(
 ) -> dict[str, Any]:
     job_template = deepcopy(default_job_template)
 
-    # Set the job's name
+    # Set the job's name and description
     job_template["name"] = settings.name
+    if settings.description:
+        job_template["description"] = settings.description
 
     # If there are multiple frame ranges, split up the Frames parameter by layer
     if render_layers[0].frames_parameter_name:
@@ -291,12 +293,6 @@ def _get_job_template(
                 + f"Actual: {wheels_path_package_names}"
             )
 
-        override_adaptor_wheels_param = [
-            param
-            for param in override_environment["parameterDefinitions"]
-            if param["name"] == "OverrideAdaptorWheels"
-        ][0]
-        override_adaptor_wheels_param["default"] = str(wheels_path)
         override_adaptor_name_param = [
             param
             for param in override_environment["parameterDefinitions"]
@@ -418,6 +414,9 @@ def _get_parameter_values(
 
     # If we're overriding the adaptor with wheels, remove the adaptor from the Packages parameters
     if settings.include_adaptor_wheels:
+        wheels_path = str(Path(__file__).parent.parent.parent.parent / "wheels")
+        parameter_values.append({"name": "OverrideAdaptorWheels", "value": wheels_path})
+
         rez_param = {}
         conda_param = {}
         # Find the Packages parameter definition

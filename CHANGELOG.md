@@ -1,3 +1,31 @@
+## 0.14.4 (2024-11-19)
+
+
+### Features
+* add Maya 2025 submitter support (#183) ([`a4fc035`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/a4fc035ae96ceb8c97e11dad5db93bd896633e85))
+
+### Bug Fixes
+* maya 2025 submitter failed to load due to qt setMargin being removed (#192) ([`39ca5fc`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/39ca5fcec28d5d5c8cb0f5d05192c6043d528694))
+* frame override does not enable frame list in Maya 2025 (#190) ([`b054dd4`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/b054dd46a7f7ebc1f025798aa323d122d843f413))
+* include description in job submission (#188) ([`c279cfd`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/c279cfd7cce0b67b84af6c9e83847733cfb1dbb8))
+
+## 0.14.3 (2024-10-17)
+
+
+### Features
+* Add the ability to specify a render region ([`419a06b`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/419a06b73b1b4914561e36e97c95a5e325c61762))
+
+### Bug Fixes
+* import HTTPClientInterface correctly on Windows (#184) ([`1208134`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/1208134b63d215b21ee86a4682ebc686079d3a21))
+
+## 0.14.2 (2024-08-22)
+
+
+
+### Bug Fixes
+* when listing layers make sure referenced layers are active. (#164) ([`bf16897`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/bf16897360018100e5ad5bb4b12781d9d72682c3))
+* adaptor wheel override (#162) ([`4ef10ce`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/4ef10ce306d231a6dc927165df5e70e1649338c6))
+
 ## 0.14.1 (2024-05-01)
 
 ### Dependencies
