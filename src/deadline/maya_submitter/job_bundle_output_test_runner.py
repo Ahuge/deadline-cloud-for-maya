@@ -16,7 +16,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 import maya.cmds
-from PySide2.QtWidgets import (  # pylint: disable=import-error; type: ignore
+from qtpy.QtWidgets import (  # type: ignore
     QApplication,
     QFileDialog,
     QMessageBox,
@@ -87,10 +87,10 @@ def _copy_dcc_scene_file(source_filename: str, dest_filename: str):
     # Find the internal scene path. Because Maya doesn't embed the absolute path of the
     # scene, we do this by requiring the following:
     # * Every <scene>.ma for a job bundle output test must contain a reference to a
-    #   file called `scene_file_to_reference.mb`, that can be an empty Maya scene.
+    #   file called `scene_file_to_reference.m?`, that can be an empty Maya scene.
     original_scene_dirname = None
     for line in scene_contents.splitlines():
-        match = re.match(r'.*"(.*)[/\\]scene_file_to_reference.mb".*', line)
+        match = re.match(r'.*"(.*)[/\\]scene_file_to_reference.m[ab]".*', line)
         if match:
             original_scene_dirname = match.group(1)
             break
@@ -136,7 +136,16 @@ def run_maya_render_submitter_job_bundle_output_test():
         gui_error_handler("Error running job bundle output test", mainwin),
         _consistent_machine_settings(),
     ):
-        default_tests_dir = Path(__file__).parent.parent.parent.parent / "job_bundle_output_tests"
+        default_tests_dir = Path(__file__).parent
+        while (
+            len(default_tests_dir.parts) > 1
+            and not (default_tests_dir / "job_bundle_output_tests").is_dir()
+        ):
+            default_tests_dir = default_tests_dir.parent
+        if len(default_tests_dir.parts) == 1:
+            default_tests_dir = Path(__file__).parent
+        else:
+            default_tests_dir = default_tests_dir / "job_bundle_output_tests"
 
         tests_dir = QFileDialog.getExistingDirectory(
             mainwin, "Select a Directory Containing Maya Job Bundle Tests", str(default_tests_dir)
@@ -166,6 +175,9 @@ def run_maya_render_submitter_job_bundle_output_test():
                 # skip renderman tests if rfm is not available
                 if "renderman" in dcc_scene_file:
                     if not maya.cmds.pluginInfo("RenderMan_for_Maya.py", query=True, loaded=True):
+                        report_fh.write(
+                            f"Skipping test {test_name} because Renderman for Maya is not installed."
+                        )
                         continue
 
                 succeeded = _run_job_bundle_output_test(

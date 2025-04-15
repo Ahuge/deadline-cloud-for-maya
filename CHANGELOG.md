@@ -1,3 +1,65 @@
+## 0.15.3 (2025-04-14)
+
+
+### Features
+* Add standalone installer for Maya Submitter (#255) ([`3c124fe`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/3c124fe844e5a77b0dda16f0b1b73f60edbf9cf5))
+
+### Bug Fixes
+* Arnold licensing error handling for mtoa5.4.7.1 (#252) ([`9c39e47`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/9c39e4761f4e1d82b82f56a3f2ba73dbdc8525fa))
+
+## 0.15.2 (2025-03-06)
+
+### Bug Fixes
+* Changed the cameras dropdown wording option from "All Cameras" to "All Renderable Cameras" in the submitter ([`a6d983c`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/a6d983c76f2628d827693c78baa4ee78a2bb0c0d))
+* Tighten error regex pattern for Maya Adaptor. ([`67bbc97`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/67bbc970dbc6c6e4273127d8ecf7ae310735f4b9))
+* Use `byFrameStep` instead of `byFrame` (#224) ([`677137d`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/677137d6a67e18d1a787671dd134096a8df0b04a))
+* Update the warning message used when the scene has unsaved changes (#238) ([`c9b5e74`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/c9b5e7479e21c76184ba522e3cd983dd8b35a647))
+* OutputPath is read from the scene in the submitter (#231) ([`d77f474`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/d77f47491372abec3324410e0cd2eb7cbc68a7eb))
+* Load scene settings when the submitter is open (#229) ([`94ee920`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/94ee920f7a0707c5308a26fb33571c85c1af7555))
+
+## 0.15.1 (2025-02-03)
+
+* This release only includes documentation updates (#227) ([`e0a3827`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/e0a38272e6cab7dac27f0af8c7c64ce3a79189ae))
+
+
+## 0.15.0 (2025-01-09)
+
+### BREAKING CHANGES
+* Allow specifying MAYAPY exe via environment (#200) ([`29634ca`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/29634ca1bbf070cbd9311329204ce09601e9a0b9))
+
+
+### Bug Fixes
+* **submitter**: read includeAllLights setting correctly (#207) ([`f5d0435`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/f5d0435d0548488622972324c9d5804d63f7aa8d))
+* fix README typos (#203) ([`d0594a8`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/d0594a8ca3dad6689691a7151a14a98aaa773b76))
+
+## 0.14.4 (2024-11-19)
+
+
+### Features
+* add Maya 2025 submitter support (#183) ([`a4fc035`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/a4fc035ae96ceb8c97e11dad5db93bd896633e85))
+
+### Bug Fixes
+* maya 2025 submitter failed to load due to qt setMargin being removed (#192) ([`39ca5fc`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/39ca5fcec28d5d5c8cb0f5d05192c6043d528694))
+* frame override does not enable frame list in Maya 2025 (#190) ([`b054dd4`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/b054dd46a7f7ebc1f025798aa323d122d843f413))
+* include description in job submission (#188) ([`c279cfd`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/c279cfd7cce0b67b84af6c9e83847733cfb1dbb8))
+
+## 0.14.3 (2024-10-17)
+
+
+### Features
+* Add the ability to specify a render region ([`419a06b`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/419a06b73b1b4914561e36e97c95a5e325c61762))
+
+### Bug Fixes
+* import HTTPClientInterface correctly on Windows (#184) ([`1208134`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/1208134b63d215b21ee86a4682ebc686079d3a21))
+
+## 0.14.2 (2024-08-22)
+
+
+
+### Bug Fixes
+* when listing layers make sure referenced layers are active. (#164) ([`bf16897`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/bf16897360018100e5ad5bb4b12781d9d72682c3))
+* adaptor wheel override (#162) ([`4ef10ce`](https://github.com/aws-deadline/deadline-cloud-for-maya/commit/4ef10ce306d231a6dc927165df5e70e1649338c6))
+
 ## 0.14.1 (2024-05-01)
 
 ### Dependencies

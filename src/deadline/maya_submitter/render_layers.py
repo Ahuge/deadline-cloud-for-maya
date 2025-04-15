@@ -7,6 +7,7 @@ from contextlib import contextmanager
 from enum import IntEnum
 from typing import List
 
+import maya.app.renderSetup.model.renderSetupPreferences as renderSetupPrefs  # type: ignore
 import maya.cmds
 import maya.mel
 
@@ -25,11 +26,16 @@ def get_all_renderable_render_layer_names() -> List[str]:
     render_layer_names = maya.cmds.ls(type="renderLayer")
     # Filter out any render layers that are referenced in other files,
     # because they cannot be set as the current render layer.
+
+    # ignore referenced and disconnected layers
+    render_manager = maya.cmds.ls("renderLayerManager")[0]
     render_layer_names = [
         name
         for name in render_layer_names
         if not maya.cmds.referenceQuery(name, isNodeReferenced=True)
+        and maya.cmds.listConnections(name, t="renderLayerManager")[0] == render_manager
     ]
+
     # Filter out any non-renderable layers
     render_layer_names = [name for name in render_layer_names if is_render_layer_renderable(name)]
     return render_layer_names
@@ -59,8 +65,10 @@ def render_setup_include_all_lights() -> bool:
     Returns whether a Render Layer should contain all lights in the scene automatically
     (machine level setting)
     """
-    # The maya.cmds.optionVar query did not work
-    return bool(maya.mel.eval("optionVar -q renderSetup_includeAllLights"))
+    try:
+        return renderSetupPrefs.IncludeAllLightsSetting.isEnabled()
+    except AttributeError:
+        return True
 
 
 @contextmanager

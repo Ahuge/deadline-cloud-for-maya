@@ -214,7 +214,7 @@ class MayaAdaptor(Adaptor[AdaptorConfiguration]):
                 RegexCallback(
                     [
                         re.compile(
-                            "(aborting render because the abort_on_license_fail option was enabled)"
+                            "(aborting render because (?:the abort_on_license_fail option was enabled|this is a batch render and abort_on_license_fail option is enabled))"
                         )
                     ],
                     self._handle_error,
@@ -362,7 +362,7 @@ class MayaAdaptor(Adaptor[AdaptorConfiguration]):
         Raises:
             FileNotFoundError: If the maya_client.py file could not be found.
         """
-        mayapy_exe = "mayapy"
+        mayapy_exe = os.environ.get("MAYAPY_EXECUTABLE", "mayapy")
         regexhandler = RegexHandler(self._get_regex_callbacks())
 
         # Add the openjd namespace directory to PYTHONPATH, so that adaptor_runtime_client
